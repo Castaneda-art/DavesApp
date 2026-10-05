@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --color-salon-dark: #2D2424;
+  --color-salon-card: #3C3131;
+  --color-salon-accent: #E07A5F;
+  --color-salon-accent-hover: #D0694E;
+  --color-salon-text: #F4F1DE;
+}
+
+@layer base {
+  body {
+    @apply font-sans text-[17px] md:text-lg antialiased tracking-wide;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #150E08;
+}
+::-webkit-scrollbar-thumb {
+  background: #3A2A1E;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E29547;
+}

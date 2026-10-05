@@ -1,0 +1,112 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 1. Roles del Sistema
+enum Role {
+  ADMINISTRADORA
+  COLABORADORA
+  CLIENTE
+}
+
+// 2. Tipos de Transacción
+enum TransactionType {
+  CORTE
+  VITRINA
+  TRENZA_PEINADO
+  GASTO_LOCAL
+}
+
+// 3. Tipos de Cliente (Métrica de Éxito)
+enum ClientCategory {
+  NUEVO       // Cara desconocida
+  HABITUAL    // Cara conocida
+}
+
+// Modelo de Usuarios (Cubre los 3 Roles)
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String?  @unique
+  password  String?
+  phone     String?  @unique
+  role      Role     @default(CLIENTE)
+  createdAt DateTime @default(now())
+
+  // Relaciones
+  transactions Transaction[]
+  clients      ClientProfile[]
+  gallery      GalleryItem[]
+}
+
+// Ficha de Cliente y Temporadas
+model ClientProfile {
+  id           String         @id @default(uuid())
+  name         String
+  phone        String?
+  age          Int?
+  notes        String?        // Ej. número de guía o indicación
+  seasonTag    String?        // Ej. "Amor y Amistad", "Maratón Diciembre"
+  category     ClientCategory @default(HABITUAL)
+  visitCount   Int            @default(1) // Contador de Fidelización
+  createdById  String
+  createdBy    User           @relation(fields: [createdById], references: [id])
+  createdAt    DateTime       @default(now())
+}
+
+// Inventario de Productos de Vitrina
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  stock       Int      @default(0)
+  minStock    Int      @default(2) // Alerta de stock bajo
+  salePrice   Float
+  costPrice   Float?
+  createdAt   DateTime @default(now())
+}
+
+// Registro de Transacciones (Caja y Gastos)
+model Transaction {
+  id             String          @id @default(uuid())
+  type           TransactionType
+  amount         Float           // Valor cobrado o gastado
+  clientCategory ClientCategory? // Para clasificar si fue cliente nuevo/habitual
+  description    String?         // Nota del gasto o detalle del servicio
+  performedById  String
+  performedBy    User            @relation(fields: [performedById], references: [id])
+  createdAt      DateTime        @default(now())
+}
+
+// Catálogo/Galería de Diseños de Trenzas (Colaboradora)
+model GalleryItem {
+  id             String   @id @default(uuid())
+  title          String   // Ej. "Trenzas Africanas"
+  imageUrl       String
+  price          Float
+  createdAt      DateTime @default(now())
+  collaboratorId String
+  collaborator   User     @relation(fields: [collaboratorId], references: [id])
+}
+
+// Semáforo de Disponibilidad (Estado del Local)
+model LocalStatus {
+  id            String   @id @default(uuid())
+  status        String   // "LIBRE" (verde), "OCUPADO" (amarillo), "ALMUERZO" (rojo)
+  clientWaiting Boolean  @default(false)
+  updatedAt     DateTime @updatedAt
+}
+
+// Sistema de Agendamiento
+model Appointment {
+  id           String   @id @default(uuid())
+  clientName   String
+  phone        String?
+  expectedTime String
+  status       String   @default("PENDIENTE") // "PENDIENTE", "COMPLETADO", "CANCELADO"
+  createdAt    DateTime @default(now())
+}
