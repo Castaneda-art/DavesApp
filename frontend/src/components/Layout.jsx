@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
+﻿import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Home, DollarSign, Users, Store, Scissors, ShoppingBag, LogOut, Calendar } from 'lucide-react';
 
 export default function Layout() {
@@ -58,7 +58,7 @@ export default function Layout() {
             className="w-full flex items-center gap-3 p-3 rounded-lg text-red-400 hover:bg-red-500/10 transition-colors duration-200"
           >
             <LogOut size={20} />
-            <span className="font-medium">Cerrar Sesión</span>
+            <span className="font-medium">Cerrar SesiÃ³n</span>
           </button>
         </div>
       </aside>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { ShoppingBag } from 'lucide-react';
 
 export default function Vitrina() {
@@ -17,7 +17,7 @@ export default function Vitrina() {
 
   const fetchInventory = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/inventory');
+      const res = await fetch('https://davesapp.onrender.com/api/inventory');
       const result = await res.json();
       if (result.success) {
         setProducts(result.data);
@@ -35,7 +35,7 @@ export default function Vitrina() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:3000/api/inventory', {
+      const res = await fetch('https://davesapp.onrender.com/api/inventory', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -55,7 +55,7 @@ export default function Vitrina() {
   const handleSell = async (id) => {
     setIsSelling(true);
     try {
-      const res = await fetch(`http://localhost:3000/api/inventory/${id}/sell`, {
+      const res = await fetch(`https://davesapp.onrender.com/api/inventory/${id}/sell`, {
         method: 'PUT'
       });
       const result = await res.json();
@@ -76,7 +76,7 @@ export default function Vitrina() {
       <div className="max-w-7xl mx-auto animate-fade-in space-y-8">
         <header className="mb-4">
           <h2 className="text-3xl font-bold text-white">Control de Vitrina</h2>
-          <p className="text-white/70 mt-1">Gestión de inventario y venta rápida de productos.</p>
+          <p className="text-white/70 mt-1">GestiÃ³n de inventario y venta rÃ¡pida de productos.</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -125,7 +125,7 @@ export default function Vitrina() {
           </form>
         </div>
 
-        {/* Cuadrícula de Inventario (Derecha) */}
+        {/* CuadrÃ­cula de Inventario (Derecha) */}
         <div className="lg:col-span-2 bg-[#2C1E16] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#3A2A1E] flex flex-col max-h-[750px]">
           <h3 className="text-xl font-semibold text-white mb-6">Inventario Disponible</h3>
           

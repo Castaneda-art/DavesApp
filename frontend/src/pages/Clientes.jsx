@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 
 export default function Clientes() {
   const [clients, setClients] = useState([]);
@@ -12,7 +12,7 @@ export default function Clientes() {
 
   const fetchClients = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/clients');
+      const res = await fetch('https://davesapp.onrender.com/api/clients');
       const result = await res.json();
       if (result.success) {
         setClients(result.data);
@@ -31,7 +31,7 @@ export default function Clientes() {
     setIsLoading(true);
 
     try {
-      const res = await fetch('http://localhost:3000/api/clients', {
+      const res = await fetch('https://davesapp.onrender.com/api/clients', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ export default function Clientes() {
       <div className="max-w-7xl mx-auto animate-fade-in space-y-8">
         <header className="mb-4">
           <h2 className="text-3xl font-bold text-white">Directorio de Clientes</h2>
-          <p className="text-white/70 mt-1">Registra la información de contacto y las fórmulas de colorimetría.</p>
+          <p className="text-white/70 mt-1">Registra la informaciÃ³n de contacto y las fÃ³rmulas de colorimetrÃ­a.</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -80,13 +80,13 @@ export default function Clientes() {
                 required
                 value={formData.name}
                 onChange={e => setFormData({ ...formData, name: e.target.value })}
-                placeholder="Ej. Ana Pérez"
+                placeholder="Ej. Ana PÃ©rez"
                 className="bg-[#3A2A1E] text-white focus:ring-2 focus:ring-[#E29547] border-none rounded-lg p-3 w-full transition-all placeholder:text-white/30"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-white/80 mb-1">Teléfono</label>
+              <label className="block text-sm font-medium text-white/80 mb-1">TelÃ©fono</label>
               <input 
                 type="text" 
                 value={formData.phone}
@@ -97,12 +97,12 @@ export default function Clientes() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/80 mb-1">Notas (Colorimetría, Preferencias)</label>
+              <label className="block text-sm font-medium text-white/80 mb-1">Notas (ColorimetrÃ­a, Preferencias)</label>
               <textarea 
                 rows="4"
                 value={formData.notes}
                 onChange={e => setFormData({ ...formData, notes: e.target.value })}
-                placeholder="Ej. Base 7.0 con peróxido de 20 Vol. Cliente prefiere peinado liso."
+                placeholder="Ej. Base 7.0 con perÃ³xido de 20 Vol. Cliente prefiere peinado liso."
                 className="bg-[#3A2A1E] text-white focus:ring-2 focus:ring-[#E29547] border-none rounded-lg p-3 w-full transition-all resize-y min-h-[100px] placeholder:text-white/30"
               ></textarea>
             </div>
@@ -133,7 +133,7 @@ export default function Clientes() {
           <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar flex flex-col gap-3">
             {filteredClients.length === 0 ? (
               <p className="text-white/50 text-center py-10">
-                {clients.length === 0 ? 'No hay clientes registrados todavía.' : 'No se encontraron clientes con ese nombre.'}
+                {clients.length === 0 ? 'No hay clientes registrados todavÃ­a.' : 'No se encontraron clientes con ese nombre.'}
               </p>
             ) : (
               filteredClients.map(client => (

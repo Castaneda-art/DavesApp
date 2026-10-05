@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bell, X, Scissors, ShoppingBag, Calendar, Clock, CalendarX } from 'lucide-react';
 
@@ -28,7 +28,7 @@ export default function Dashboard() {
 
   const fetchStatus = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/status');
+      const response = await fetch('https://davesapp.onrender.com/api/status');
       const result = await response.json();
       if (result.success && result.data && result.data.length > 0) {
         setLocalStatus(result.data[0]);
@@ -43,7 +43,7 @@ export default function Dashboard() {
 
   const fetchTransactions = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/transactions');
+      const response = await fetch('https://davesapp.onrender.com/api/transactions');
       const result = await response.json();
       
       if (result.success && result.data) {
@@ -76,7 +76,7 @@ export default function Dashboard() {
 
   const fetchDashboard = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/dashboard');
+      const response = await fetch('https://davesapp.onrender.com/api/dashboard');
       const result = await response.json();
       if (result.success) {
         setClientesAtendidos(result.clientesAtendidos);
@@ -98,7 +98,7 @@ export default function Dashboard() {
 
   const fetchClients = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/clients');
+      const res = await fetch('https://davesapp.onrender.com/api/clients');
       const result = await res.json();
       if (result.success) setClients(result.data);
     } catch (error) {
@@ -108,7 +108,7 @@ export default function Dashboard() {
 
   const fetchInventory = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/inventory');
+      const res = await fetch('https://davesapp.onrender.com/api/inventory');
       const result = await res.json();
       if (result.success) setProducts(result.data.filter(p => p.stock > 0));
     } catch (error) {
@@ -120,7 +120,7 @@ export default function Dashboard() {
 
   const fetchAppointments = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/appointments');
+      const res = await fetch('https://davesapp.onrender.com/api/appointments');
       const result = await res.json();
       if (result.success) {
         setAppointments(result.data.filter(a => a.status === 'PENDIENTE'));
@@ -154,7 +154,7 @@ export default function Dashboard() {
         amount: 15000,
         clientCategory: 'HABITUAL',
         clientId: quickClientId,
-        description: 'Corte rápido',
+        description: 'Corte rÃ¡pido',
       };
     } else {
       payload = { 
@@ -162,13 +162,13 @@ export default function Dashboard() {
         amount: 15000, 
         clientCategory: 'NUEVO', 
         clientName: 'Cliente de Paso', 
-        description: 'Corte rápido', 
+        description: 'Corte rÃ¡pido', 
         seasonTag: 'Ninguna' 
       };
     }
     
     try {
-      const res = await fetch('http://localhost:3000/api/transactions', {
+      const res = await fetch('https://davesapp.onrender.com/api/transactions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -202,12 +202,12 @@ export default function Dashboard() {
       amount: product.salePrice,
       clientCategory: 'NUEVO',
       clientName: 'Cliente de Paso',
-      description: `Venta rápida de vitrina: ${product.name}`,
+      description: `Venta rÃ¡pida de vitrina: ${product.name}`,
       productId: product.id
     };
 
     try {
-      const res = await fetch('http://localhost:3000/api/transactions', {
+      const res = await fetch('https://davesapp.onrender.com/api/transactions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -230,7 +230,7 @@ export default function Dashboard() {
 
   const handleClearAlert = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/status/clear', { method: 'PUT' });
+      const response = await fetch('https://davesapp.onrender.com/api/status/clear', { method: 'PUT' });
       const result = await response.json();
       if (result.success) {
         setClientWaiting(false);
@@ -245,7 +245,7 @@ export default function Dashboard() {
 
     setIsUpdating(true);
     try {
-      const response = await fetch(`http://localhost:3000/api/status/${localStatus.id}`, {
+      const response = await fetch(`https://davesapp.onrender.com/api/status/${localStatus.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -280,7 +280,7 @@ export default function Dashboard() {
 
   const statusColors = getStatusColors(localStatus?.status);
   
-  // Calcular porcentaje de la meta (con un límite de 100% visualmente)
+  // Calcular porcentaje de la meta (con un lÃ­mite de 100% visualmente)
   const progressPercentage = Math.min(Math.max((ingresosHoy / META_DIARIA) * 100, 0), 100);
 
   return (
@@ -296,7 +296,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="font-bold text-[#E29547] text-base">Un cliente ha tocado el timbre</p>
-                <p className="text-[#E29547]/80 text-sm mt-0.5">Hay alguien esperando ser atendido en la recepción.</p>
+                <p className="text-[#E29547]/80 text-sm mt-0.5">Hay alguien esperando ser atendido en la recepciÃ³n.</p>
               </div>
             </div>
             <button
@@ -310,8 +310,8 @@ export default function Dashboard() {
         )}
 
         <header className="mb-4">
-          <h2 className="text-3xl font-bold text-white">Resumen del Día</h2>
-          <p className="text-white/70 mt-1">Bienvenido al panel de administración de tu peluquería.</p>
+          <h2 className="text-3xl font-bold text-white">Resumen del DÃ­a</h2>
+          <p className="text-white/70 mt-1">Bienvenido al panel de administraciÃ³n de tu peluquerÃ­a.</p>
         </header>
         
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -396,18 +396,18 @@ export default function Dashboard() {
                 </div>
                 {localStatus.updatedAt && (
                   <p className="text-sm text-white/60 mt-4">
-                    Última actualización: {new Date(localStatus.updatedAt).toLocaleTimeString()}
+                    Ãšltima actualizaciÃ³n: {new Date(localStatus.updatedAt).toLocaleTimeString()}
                   </p>
                 )}
               </>
             ) : (
               <div className="mt-2">
-                <p className="text-xl font-medium text-white/60">Sin información</p>
+                <p className="text-xl font-medium text-white/60">Sin informaciÃ³n</p>
               </div>
             )}
           </div>
 
-          {/* Botonera de Actualización de Estado */}
+          {/* Botonera de ActualizaciÃ³n de Estado */}
           {localStatus && !isLoading && (
             <div className="mt-6 flex gap-2">
               <button 
@@ -438,7 +438,7 @@ export default function Dashboard() {
       </div>
 
       <div className="bg-[#2C1E16] rounded-2xl shadow-xl border border-[#3A2A1E] p-6 sm:p-8 mt-8 transition-colors duration-300 hover:border-[#E29547]/50">
-        <h3 className="text-xl font-bold text-white mb-6">Próximas Citas (Hoy)</h3>
+        <h3 className="text-xl font-bold text-white mb-6">PrÃ³ximas Citas (Hoy)</h3>
         {appointments.length === 0 ? (
           <div className="flex flex-col items-center justify-center p-8 opacity-60">
             <CalendarX className="w-12 h-12 text-gray-400 mb-4" />
@@ -470,10 +470,10 @@ export default function Dashboard() {
       </div>
 
       <div className="bg-[#2C1E16] rounded-2xl shadow-xl border border-[#3A2A1E] p-6 sm:p-8 mt-8 transition-colors duration-300 hover:border-[#E29547]/50">
-        <h3 className="text-xl font-bold text-white mb-6">Acciones Rápidas</h3>
+        <h3 className="text-xl font-bold text-white mb-6">Acciones RÃ¡pidas</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Columna 1: Corte Rápido */}
+          {/* Columna 1: Corte RÃ¡pido */}
           <div className="flex flex-col">
             <select
               value={quickClientId}
@@ -492,7 +492,7 @@ export default function Dashboard() {
               className="bg-[#E29547] hover:bg-[#F2A65A] text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#E29547]/30 active:scale-95 disabled:opacity-50 disabled:active:scale-100"
             >
               <Scissors className="w-5 h-5" />
-              {isQuickCutting ? 'Registrando...' : 'Corte Rápido ($15.000)'}
+              {isQuickCutting ? 'Registrando...' : 'Corte RÃ¡pido ($15.000)'}
             </button>
           </div>
 

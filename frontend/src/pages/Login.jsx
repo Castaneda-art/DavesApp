@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock, User } from 'lucide-react';
 
@@ -16,7 +16,7 @@ export default function Login() {
     setError('');
 
     try {
-      const res = await fetch('http://localhost:3000/api/auth/login', {
+      const res = await fetch('https://davesapp.onrender.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -33,10 +33,10 @@ export default function Login() {
           navigate('/');
         }
       } else {
-        setError(result.message || 'Credenciales inválidas');
+        setError(result.message || 'Credenciales invÃ¡lidas');
       }
     } catch (err) {
-      setError('Error de conexión con el servidor.');
+      setError('Error de conexiÃ³n con el servidor.');
     } finally {
       setIsLoading(false);
     }
@@ -80,7 +80,7 @@ export default function Login() {
           <div>
             <label className="block text-sm font-medium text-[#FAFAFA]/90 mb-2 flex items-center gap-2">
               <Lock className="w-4 h-4 text-[#E29547]" />
-              Contraseña
+              ContraseÃ±a
             </label>
             <input 
               type="password" 
@@ -88,7 +88,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="bg-[#3A2A1E] text-white focus:ring-2 focus:ring-[#E29547] border-none rounded-lg p-3 w-full transition-all placeholder:text-[#FAFAFA]/30"
-              placeholder="••••••••"
+              placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
             />
           </div>
 
