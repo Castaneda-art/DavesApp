@@ -41,7 +41,7 @@ export default function VistaCliente() {
         setBookMessage({ type: 'error', text: 'Error al agendar cita.' });
       }
     } catch (e) {
-      setBookMessage({ type: 'error', text: 'Error de conexiÃ³n.' });
+      setBookMessage({ type: 'error', text: 'Error de conexion.' });
     } finally {
       setIsBooking(false);
     }
@@ -97,7 +97,7 @@ export default function VistaCliente() {
         setMessage({ type: 'error', text: 'Error del servidor al validar.' });
       }
     } catch (e) {
-      setMessage({ type: 'error', text: 'No hay conexiÃ³n con el servidor.' });
+      setMessage({ type: 'error', text: 'No hay conexion con el servidor.' });
     } finally {
       setIsLoading(false);
     }
@@ -112,7 +112,7 @@ export default function VistaCliente() {
       const res = await fetch('https://davesapp.onrender.com/api/clients', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, notes: 'Registro autÃ³nomo vÃ­a Vista Cliente', seasonTag })
+        body: JSON.stringify({ name, phone, notes: 'Registro autonomo via Vista Cliente', seasonTag })
       });
       const result = await res.json();
       
@@ -174,11 +174,11 @@ export default function VistaCliente() {
             </div>
           )}
 
-          {/* PASO 1: PEDIR TELÃ‰FONO */}
+          {/* PASO 1: PEDIR TEL�0FONO */}
           {step === 'PHONE_INPUT' && (
             <div className="animate-fade-in text-center max-w-md mx-auto">
               <Phone className="w-12 h-12 text-[#E29547] mx-auto mb-4 opacity-80" />
-              <p className="text-white opacity-70 text-sm mb-6">Por favor, ingresa tu nÃºmero de telÃ©fono para identificarte.</p>
+              <p className="text-white opacity-70 text-sm mb-6">Por favor, ingresa tu numero de telefono para identificarte.</p>
               
               <form onSubmit={handlePhoneSubmit} className="space-y-4">
                 <input 
@@ -186,7 +186,7 @@ export default function VistaCliente() {
                   required 
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="NÃºmero de celular"
+                  placeholder="Numero de celular"
                   className="bg-[#3A2A1E] text-white focus:ring-2 focus:ring-[#E29547] border-none rounded-lg p-3 w-full text-center transition-all placeholder:text-white/30"
                 />
                 <button 
@@ -204,8 +204,8 @@ export default function VistaCliente() {
           {step === 'REGISTER' && (
             <div className="animate-fade-in text-center max-w-md mx-auto">
               <UserIcon className="w-12 h-12 text-[#E29547] mx-auto mb-4 opacity-80" />
-              <h2 className="text-xl font-semibold text-white mb-2">Es tu primera vez aquÃ­</h2>
-              <p className="text-white opacity-70 text-sm mb-6">RegÃ­strate rÃ¡pidamente para comenzar a acumular beneficios.</p>
+              <h2 className="text-xl font-semibold text-white mb-2">Es tu primera vez aqui</h2>
+              <p className="text-white opacity-70 text-sm mb-6">Registrate rapidamente para comenzar a acumular beneficios.</p>
               
               <form onSubmit={handleRegister} className="space-y-4 text-left">
                 <div>
@@ -228,9 +228,9 @@ export default function VistaCliente() {
                   >
                     <option value="Ninguna">Ninguna</option>
                     <option value="Amor y Amistad">Amor y Amistad</option>
-                    <option value="MaratÃ³n Diciembre">MaratÃ³n Diciembre</option>
+                    <option value="Maraton Diciembre">Maraton Diciembre</option>
                     <option value="Fiestas de Empresa">Fiestas de Empresa</option>
-                    <option value="DÃ­a de la Madre">DÃ­a de la Madre</option>
+                    <option value="Dia de la Madre">Dia de la Madre</option>
                   </select>
                 </div>
                 <button 
@@ -245,7 +245,7 @@ export default function VistaCliente() {
                   onClick={() => setStep('PHONE_INPUT')}
                   className="w-full text-white opacity-60 text-sm hover:opacity-100 transition-opacity mt-2"
                 >
-                  Volver atrÃ¡s
+                  Volver atras
                 </button>
               </form>
             </div>
@@ -261,14 +261,14 @@ export default function VistaCliente() {
                   <h2 className="text-3xl font-bold text-white mb-1">
                     Hola, <span className="text-[#E29547]">{clientData.name.split(' ')[0]}</span>
                   </h2>
-                  <p className="text-white/70">QuÃ© bueno verte de nuevo.</p>
+                  <p className="text-white/70">Que bueno verte de nuevo.</p>
                 </div>
                 <div className="flex items-center gap-4 bg-[#1A120D] p-4 rounded-xl border border-[#3A2A1E]">
                   <div className="p-2 bg-yellow-500/10 rounded-lg">
                     <Star className="w-6 h-6 text-yellow-500" />
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-white/80 uppercase tracking-wider">FidelizaciÃ³n</p>
+                    <p className="text-xs font-medium text-white/80 uppercase tracking-wider">Fidelizacion</p>
                     <p className="text-xl font-bold text-white">{clientData.visitCount || 1} <span className="text-sm font-normal opacity-70">visitas</span></p>
                   </div>
                 </div>
@@ -281,8 +281,8 @@ export default function VistaCliente() {
                   {localStatus ? (
                     <>
                       <div>
-                        <h3 className="text-xl font-bold text-white mb-2">AtenciÃ³n Inmediata</h3>
-                        <p className="text-white/70 text-sm mb-6">Si ya estÃ¡s aquÃ­, avÃ­sanos para atenderte.</p>
+                        <h3 className="text-xl font-bold text-white mb-2">Atencion Inmediata</h3>
+                        <p className="text-white/70 text-sm mb-6">Si ya estas aqui, avisanos para atenderte.</p>
                       </div>
                       <div className="flex flex-col items-center flex-1 justify-center bg-[#1A120D] p-6 rounded-xl border border-[#3A2A1E] mb-6">
                         <p className="text-sm font-medium text-white/80 uppercase tracking-wider mb-4">Estado del Local</p>
@@ -309,7 +309,7 @@ export default function VistaCliente() {
                         {isLoading ? 'Notificando...' : 'Tocar Timbre'}
                       </button>
                       {localStatus.status !== 'LIBRE' && !message.type && (
-                        <p className="text-xs text-white/50 mt-3 text-center">El timbre solo estÃ¡ disponible cuando el local estÃ¡ LIBRE.</p>
+                        <p className="text-xs text-white/50 mt-3 text-center">El timbre solo esta disponible cuando el local esta LIBRE.</p>
                       )}
                     </>
                   ) : (
@@ -347,7 +347,7 @@ export default function VistaCliente() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-white opacity-90 mb-1">TelÃ©fono</label>
+                      <label className="block text-sm font-medium text-white opacity-90 mb-1">Telefono</label>
                       <input 
                         type="tel" 
                         required 
@@ -377,17 +377,17 @@ export default function VistaCliente() {
                 </div>
               </div>
 
-              {/* Lado inferior: CatÃ¡logo */}
+              {/* Lado inferior: Catalogo */}
               <div className="bg-[#1A120D] p-6 rounded-2xl border border-[#3A2A1E] overflow-hidden flex flex-col">
                 <div className="flex items-center gap-3 mb-6 shrink-0">
                   <ImageIcon className="w-6 h-6 text-[#E29547]" />
-                  <h3 className="text-xl font-bold text-white">CatÃ¡logo de Servicios</h3>
+                  <h3 className="text-xl font-bold text-white">Catalogo de Servicios</h3>
                 </div>
                 
                 <div className="flex-1 overflow-x-auto pb-4 custom-scrollbar">
                   {gallery.length === 0 ? (
                     <p className="text-white/50 text-center py-10 border border-dashed border-[#3A2A1E] rounded-xl">
-                      No hay diseÃ±os disponibles en este momento.
+                      No hay disenos disponibles en este momento.
                     </p>
                   ) : (
                     <div className="flex gap-4">

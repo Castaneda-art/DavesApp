@@ -103,7 +103,7 @@ export default function Caja() {
     }
   };
 
-  // LÃ³gica de Vuelto
+  // Logica de Vuelto
   const amountToPay = parseFloat(formData.amount) || 0;
   const amountGiven = parseFloat(cashReceived) || 0;
   const changeToReturn = amountGiven - amountToPay;
@@ -113,17 +113,17 @@ export default function Caja() {
       <div className="max-w-7xl mx-auto animate-fade-in space-y-8">
         <header className="mb-4">
           <h2 className="text-3xl font-bold text-white">Caja y Transacciones</h2>
-          <p className="text-white/70 mt-1">Registra ingresos por servicios y gastos del salÃ³n.</p>
+          <p className="text-white/70 mt-1">Registra ingresos por servicios y gastos del salon.</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Formulario de Registro */}
           <div className="bg-[#2C1E16] rounded-2xl shadow-xl border border-[#3A2A1E] p-6 sm:p-8 h-fit">
-            <h3 className="text-xl font-semibold text-white mb-4">Nueva TransacciÃ³n</h3>
+            <h3 className="text-xl font-semibold text-white mb-4">Nueva Transaccion</h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-white/90 mb-1">Tipo de TransacciÃ³n</label>
+                <label className="block text-sm font-medium text-white/90 mb-1">Tipo de Transaccion</label>
                 <select 
                   value={formData.type}
                   onChange={e => {
@@ -181,7 +181,7 @@ export default function Caja() {
             {formData.type !== 'GASTO_LOCAL' && (
               <>
                 <div>
-                  <label className="block text-sm font-medium text-white/90 mb-1">CategorÃ­a del Cliente</label>
+                  <label className="block text-sm font-medium text-white/90 mb-1">Categoria del Cliente</label>
                   <select 
                     value={formData.clientCategory}
                     onChange={e => setFormData({ ...formData, clientCategory: e.target.value, clientId: '', clientName: '' })}
@@ -201,7 +201,7 @@ export default function Caja() {
                         required
                         value={formData.clientName}
                         onChange={e => setFormData({ ...formData, clientName: e.target.value })}
-                        placeholder="Ej. MarÃ­a GÃ³mez"
+                        placeholder="Ej. Maria Gomez"
                         className="bg-[#3A2A1E] text-white focus:ring-2 focus:ring-[#E29547] border-none rounded-lg p-3 w-full transition-all placeholder:text-white/30"
                       />
                     </div>
@@ -214,9 +214,9 @@ export default function Caja() {
                       >
                         <option value="Ninguna">Ninguna</option>
                         <option value="Amor y Amistad">Amor y Amistad</option>
-                        <option value="MaratÃ³n Diciembre">MaratÃ³n Diciembre</option>
+                        <option value="Maraton Diciembre">Maraton Diciembre</option>
                         <option value="Fiestas de Empresa">Fiestas de Empresa</option>
-                        <option value="DÃ­a de la Madre">DÃ­a de la Madre</option>
+                        <option value="Dia de la Madre">Dia de la Madre</option>
                       </select>
                     </div>
                   </div>
@@ -256,7 +256,7 @@ export default function Caja() {
             )}
 
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-1">DescripciÃ³n</label>
+              <label className="block text-sm font-medium text-white/90 mb-1">Descripcion</label>
               <input 
                 type="text" 
                 required
@@ -272,20 +272,20 @@ export default function Caja() {
               disabled={isLoading}
               className="w-full mt-6 bg-[#E29547] hover:bg-[#F2A65A] text-white py-3 rounded-lg font-bold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#E29547]/30 active:scale-95 disabled:opacity-50 disabled:active:scale-100"
             >
-              {isLoading ? 'Guardando...' : 'Registrar TransacciÃ³n'}
+              {isLoading ? 'Guardando...' : 'Registrar Transaccion'}
             </button>
           </form>
         </div>
 
         {/* Historial de Transacciones */}
         <div className="bg-[#2C1E16] rounded-2xl shadow-xl border border-[#3A2A1E] p-6 sm:p-8 flex flex-col max-h-[700px]">
-          <h3 className="text-xl font-semibold text-white mb-4">Ãšltimos Movimientos</h3>
+          <h3 className="text-xl font-semibold text-white mb-4">�altimos Movimientos</h3>
           
           <div className="flex-1 overflow-y-auto space-y-1 pr-2 custom-scrollbar">
             {transactions.length === 0 ? (
               <div className="flex flex-col items-center justify-center p-8 opacity-60 mt-10">
                 <Inbox className="w-12 h-12 text-gray-400 mb-4" />
-                <p className="text-gray-400">No hay transacciones registradas todavÃ­a.</p>
+                <p className="text-gray-400">No hay transacciones registradas todavia.</p>
               </div>
             ) : (
               transactions.map(tx => {

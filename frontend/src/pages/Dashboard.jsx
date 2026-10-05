@@ -154,7 +154,7 @@ export default function Dashboard() {
         amount: 15000,
         clientCategory: 'HABITUAL',
         clientId: quickClientId,
-        description: 'Corte rÃ¡pido',
+        description: 'Corte rapido',
       };
     } else {
       payload = { 
@@ -162,7 +162,7 @@ export default function Dashboard() {
         amount: 15000, 
         clientCategory: 'NUEVO', 
         clientName: 'Cliente de Paso', 
-        description: 'Corte rÃ¡pido', 
+        description: 'Corte rapido', 
         seasonTag: 'Ninguna' 
       };
     }
@@ -202,7 +202,7 @@ export default function Dashboard() {
       amount: product.salePrice,
       clientCategory: 'NUEVO',
       clientName: 'Cliente de Paso',
-      description: `Venta rÃ¡pida de vitrina: ${product.name}`,
+      description: `Venta rapida de vitrina: ${product.name}`,
       productId: product.id
     };
 
@@ -280,7 +280,7 @@ export default function Dashboard() {
 
   const statusColors = getStatusColors(localStatus?.status);
   
-  // Calcular porcentaje de la meta (con un lÃ­mite de 100% visualmente)
+  // Calcular porcentaje de la meta (con un limite de 100% visualmente)
   const progressPercentage = Math.min(Math.max((ingresosHoy / META_DIARIA) * 100, 0), 100);
 
   return (
@@ -296,7 +296,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="font-bold text-[#E29547] text-base">Un cliente ha tocado el timbre</p>
-                <p className="text-[#E29547]/80 text-sm mt-0.5">Hay alguien esperando ser atendido en la recepciÃ³n.</p>
+                <p className="text-[#E29547]/80 text-sm mt-0.5">Hay alguien esperando ser atendido en la recepcion.</p>
               </div>
             </div>
             <button
@@ -310,8 +310,8 @@ export default function Dashboard() {
         )}
 
         <header className="mb-4">
-          <h2 className="text-3xl font-bold text-white">Resumen del DÃ­a</h2>
-          <p className="text-white/70 mt-1">Bienvenido al panel de administraciÃ³n de tu peluquerÃ­a.</p>
+          <h2 className="text-3xl font-bold text-white">Resumen del Dia</h2>
+          <p className="text-white/70 mt-1">Bienvenido al panel de administracion de tu peluqueria.</p>
         </header>
         
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -396,18 +396,18 @@ export default function Dashboard() {
                 </div>
                 {localStatus.updatedAt && (
                   <p className="text-sm text-white/60 mt-4">
-                    Ãšltima actualizaciÃ³n: {new Date(localStatus.updatedAt).toLocaleTimeString()}
+                    �altima actualizacion: {new Date(localStatus.updatedAt).toLocaleTimeString()}
                   </p>
                 )}
               </>
             ) : (
               <div className="mt-2">
-                <p className="text-xl font-medium text-white/60">Sin informaciÃ³n</p>
+                <p className="text-xl font-medium text-white/60">Sin informacion</p>
               </div>
             )}
           </div>
 
-          {/* Botonera de ActualizaciÃ³n de Estado */}
+          {/* Botonera de Actualizacion de Estado */}
           {localStatus && !isLoading && (
             <div className="mt-6 flex gap-2">
               <button 
@@ -438,7 +438,7 @@ export default function Dashboard() {
       </div>
 
       <div className="bg-[#2C1E16] rounded-2xl shadow-xl border border-[#3A2A1E] p-6 sm:p-8 mt-8 transition-colors duration-300 hover:border-[#E29547]/50">
-        <h3 className="text-xl font-bold text-white mb-6">PrÃ³ximas Citas (Hoy)</h3>
+        <h3 className="text-xl font-bold text-white mb-6">Proximas Citas (Hoy)</h3>
         {appointments.length === 0 ? (
           <div className="flex flex-col items-center justify-center p-8 opacity-60">
             <CalendarX className="w-12 h-12 text-gray-400 mb-4" />
@@ -470,10 +470,10 @@ export default function Dashboard() {
       </div>
 
       <div className="bg-[#2C1E16] rounded-2xl shadow-xl border border-[#3A2A1E] p-6 sm:p-8 mt-8 transition-colors duration-300 hover:border-[#E29547]/50">
-        <h3 className="text-xl font-bold text-white mb-6">Acciones RÃ¡pidas</h3>
+        <h3 className="text-xl font-bold text-white mb-6">Acciones Rapidas</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Columna 1: Corte RÃ¡pido */}
+          {/* Columna 1: Corte Rapido */}
           <div className="flex flex-col">
             <select
               value={quickClientId}
@@ -492,7 +492,7 @@ export default function Dashboard() {
               className="bg-[#E29547] hover:bg-[#F2A65A] text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#E29547]/30 active:scale-95 disabled:opacity-50 disabled:active:scale-100"
             >
               <Scissors className="w-5 h-5" />
-              {isQuickCutting ? 'Registrando...' : 'Corte RÃ¡pido ($15.000)'}
+              {isQuickCutting ? 'Registrando...' : 'Corte Rapido ($15.000)'}
             </button>
           </div>
 

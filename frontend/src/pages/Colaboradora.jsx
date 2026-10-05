@@ -126,12 +126,12 @@ export default function Colaboradora() {
       <div className="max-w-7xl mx-auto animate-fade-in space-y-8">
         <header className="mb-4">
           <h2 className="text-3xl font-bold text-white">Panel de la Colaboradora</h2>
-          <p className="text-white/70 mt-1">GestiÃ³n de tu catÃ¡logo de diseÃ±os y cierre diario personal.</p>
+          <p className="text-white/70 mt-1">Gestion de tu catalogo de disenos y cierre diario personal.</p>
         </header>
 
         <div className="space-y-8">
           
-          {/* SECCIÃ“N A: Cierre de Caja Personal y Registro Express */}
+          {/* SECCI�N A: Cierre de Caja Personal y Registro Express */}
           <section className="bg-[#2C1E16] rounded-2xl shadow-xl border border-[#3A2A1E] p-6 sm:p-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
               <div>
@@ -139,7 +139,7 @@ export default function Colaboradora() {
                   <Wallet className="text-[#E29547] w-6 h-6" />
                   Cierre de Caja
                 </h3>
-              <p className="text-white/70 mt-1">Total recaudado hoy en servicios de Trenzas y Peinados para tu liquidaciÃ³n.</p>
+              <p className="text-white/70 mt-1">Total recaudado hoy en servicios de Trenzas y Peinados para tu liquidacion.</p>
             </div>
             
             <div className="text-right bg-[#1A120D] p-6 rounded-xl border border-[#3A2A1E] min-w-[250px] w-full md:w-auto">
@@ -166,7 +166,7 @@ export default function Colaboradora() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-1">CategorÃ­a del Cliente</label>
+                <label className="block text-sm font-medium text-white/80 mb-1">Categoria del Cliente</label>
                 <select 
                   value={txFormData.clientCategory} 
                   onChange={e => setTxFormData({...txFormData, clientCategory: e.target.value})} 
@@ -187,7 +187,7 @@ export default function Colaboradora() {
                         value={txFormData.clientName} 
                         onChange={e => setTxFormData({...txFormData, clientName: e.target.value})} 
                         className="bg-[#3A2A1E] text-white focus:ring-2 focus:ring-[#E29547] border-none rounded-lg p-3 w-full transition-all placeholder:text-white/30" 
-                        placeholder="Ej. Ana RamÃ­rez" 
+                        placeholder="Ej. Ana Ramirez" 
                       />
                     </div>
                     <div>
@@ -199,9 +199,9 @@ export default function Colaboradora() {
                       >
                         <option value="Ninguna">Ninguna</option>
                         <option value="Amor y Amistad">Amor y Amistad</option>
-                        <option value="MaratÃ³n Diciembre">MaratÃ³n Diciembre</option>
+                        <option value="Maraton Diciembre">Maraton Diciembre</option>
                         <option value="Fiestas de Empresa">Fiestas de Empresa</option>
-                        <option value="DÃ­a de la Madre">DÃ­a de la Madre</option>
+                        <option value="Dia de la Madre">Dia de la Madre</option>
                       </select>
                     </div>
                   </div>
@@ -242,7 +242,7 @@ export default function Colaboradora() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-1">DescripciÃ³n del Servicio</label>
+                <label className="block text-sm font-medium text-white/80 mb-1">Descripcion del Servicio</label>
                 <input 
                   type="text" required 
                   value={txFormData.description} 
@@ -288,13 +288,13 @@ export default function Colaboradora() {
           </div>
         </section>
 
-        {/* SECCIÃ“N B: GalerÃ­a de DiseÃ±os */}
+        {/* SECCI�N B: Galeria de Disenos */}
         <section className="bg-[#2C1E16] rounded-2xl shadow-xl border border-[#3A2A1E] p-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
             <div>
               <h3 className="text-2xl font-semibold text-white flex items-center gap-2">
                 <ImageIcon className="text-white w-6 h-6" />
-                CatÃ¡logo de DiseÃ±os
+                Catalogo de Disenos
               </h3>
               <p className="text-white/70 mt-1">Muestra tu portafolio a los clientes con precios y tiempos.</p>
             </div>
@@ -302,7 +302,7 @@ export default function Colaboradora() {
               onClick={() => setIsAdding(!isAdding)}
               className="bg-[#E29547] hover:bg-[#F2A65A] text-white px-5 py-2.5 rounded-lg transition-all font-bold text-sm shadow-md flex items-center gap-2"
             >
-              {isAdding ? 'Cancelar' : 'Agregar Nuevo DiseÃ±o'}
+              {isAdding ? 'Cancelar' : 'Agregar Nuevo Diseno'}
             </button>
           </div>
 
@@ -311,15 +311,15 @@ export default function Colaboradora() {
             <div className="bg-[#1A120D] p-6 rounded-xl border border-[#3A2A1E] mb-8 animate-fade-in shadow-inner">
               <form onSubmit={handleAddGalleryItem} className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm font-medium text-white/80 mb-1">TÃ­tulo del DiseÃ±o</label>
+                  <label className="block text-sm font-medium text-white/80 mb-1">Titulo del Diseno</label>
                   <input type="text" required value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} className="bg-[#3A2A1E] text-white focus:ring-2 focus:ring-[#E29547] border-none rounded-lg p-3 w-full transition-all placeholder:text-white/30" placeholder="Ej. Trenzas Africanas" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-white/80 mb-1">URL de la FotografÃ­a</label>
+                  <label className="block text-sm font-medium text-white/80 mb-1">URL de la Fotografia</label>
                   <input type="url" required value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} className="bg-[#3A2A1E] text-white focus:ring-2 focus:ring-[#E29547] border-none rounded-lg p-3 w-full transition-all placeholder:text-white/30" placeholder="https://ejemplo.com/imagen.jpg" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-white/80 mb-1">DuraciÃ³n Estimada</label>
+                  <label className="block text-sm font-medium text-white/80 mb-1">Duracion Estimada</label>
                   <input type="text" required value={formData.duration} onChange={e => setFormData({...formData, duration: e.target.value})} className="bg-[#3A2A1E] text-white focus:ring-2 focus:ring-[#E29547] border-none rounded-lg p-3 w-full transition-all placeholder:text-white/30" placeholder="Ej. 2 horas y media" />
                 </div>
                 <div>
@@ -328,19 +328,19 @@ export default function Colaboradora() {
                 </div>
                 <div className="md:col-span-2 mt-2">
                   <button type="submit" disabled={isLoading} className="w-full bg-[#E29547] hover:bg-[#F2A65A] text-white py-3 rounded-lg font-bold text-lg transition-all disabled:opacity-50">
-                    {isLoading ? 'Guardando en la galerÃ­a...' : 'Guardar DiseÃ±o en el CatÃ¡logo'}
+                    {isLoading ? 'Guardando en la galeria...' : 'Guardar Diseno en el Catalogo'}
                   </button>
                 </div>
               </form>
             </div>
           )}
 
-          {/* Grid GalerÃ­a */}
+          {/* Grid Galeria */}
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {gallery.length === 0 ? (
               <div className="col-span-full flex flex-col items-center justify-center p-8 opacity-60 mt-4 border-2 border-dashed border-[#3A2A1E] rounded-xl">
                 <ImageOff className="w-12 h-12 text-gray-400 mb-4" />
-                <p className="text-gray-400">AÃºn no tienes diseÃ±os. Sube tu primer trabajo para que los clientes lo vean.</p>
+                <p className="text-gray-400">Aun no tienes disenos. Sube tu primer trabajo para que los clientes lo vean.</p>
               </div>
             ) : (
               gallery.map(item => (

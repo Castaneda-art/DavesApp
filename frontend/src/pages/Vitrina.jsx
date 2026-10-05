@@ -76,7 +76,7 @@ export default function Vitrina() {
       <div className="max-w-7xl mx-auto animate-fade-in space-y-8">
         <header className="mb-4">
           <h2 className="text-3xl font-bold text-white">Control de Vitrina</h2>
-          <p className="text-white/70 mt-1">GestiÃ³n de inventario y venta rÃ¡pida de productos.</p>
+          <p className="text-white/70 mt-1">Gestion de inventario y venta rapida de productos.</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -125,7 +125,7 @@ export default function Vitrina() {
           </form>
         </div>
 
-        {/* CuadrÃ­cula de Inventario (Derecha) */}
+        {/* Cuadricula de Inventario (Derecha) */}
         <div className="lg:col-span-2 bg-[#2C1E16] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#3A2A1E] flex flex-col max-h-[750px]">
           <h3 className="text-xl font-semibold text-white mb-6">Inventario Disponible</h3>
           

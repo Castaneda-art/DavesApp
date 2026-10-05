@@ -19,7 +19,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     return <Navigate to="/login" replace />;
   }
 
-  // Si hay roles permitidos y el rol actual no estÃ¡ en la lista
+  // Si hay roles permitidos y el rol actual no esta en la lista
   if (allowedRoles && !allowedRoles.includes(role)) {
     if (role === 'COLABORADORA') {
       return <Navigate to="/colaboradora" replace />;
@@ -34,11 +34,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rutas PÃºblicas */}
+        {/* Rutas Publicas */}
         <Route path="/login" element={<Login />} />
         <Route path="/publico" element={<VistaCliente />} />
         
-        {/* Rutas Protegidas (Requieren autenticaciÃ³n) */}
+        {/* Rutas Protegidas (Requieren autenticacion) */}
         <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
           <Route index element={<ProtectedRoute allowedRoles={['ADMINISTRADORA']}><Dashboard /></ProtectedRoute>} />
           <Route path="caja" element={<ProtectedRoute allowedRoles={['ADMINISTRADORA']}><Caja /></ProtectedRoute>} />
@@ -48,7 +48,7 @@ function App() {
           <Route path="agenda" element={<ProtectedRoute allowedRoles={['ADMINISTRADORA']}><Agenda /></ProtectedRoute>} />
         </Route>
 
-        {/* Catch-all para redirigir a una ruta vÃ¡lida si se escribe cualquier otra cosa */}
+        {/* Catch-all para redirigir a una ruta valida si se escribe cualquier otra cosa */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

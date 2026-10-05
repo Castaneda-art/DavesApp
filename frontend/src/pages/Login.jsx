@@ -33,10 +33,10 @@ export default function Login() {
           navigate('/');
         }
       } else {
-        setError(result.message || 'Credenciales invÃ¡lidas');
+        setError(result.message || 'Credenciales invalidas');
       }
     } catch (err) {
-      setError('Error de conexiÃ³n con el servidor.');
+      setError('Error de conexion con el servidor.');
     } finally {
       setIsLoading(false);
     }
@@ -80,7 +80,7 @@ export default function Login() {
           <div>
             <label className="block text-sm font-medium text-[#FAFAFA]/90 mb-2 flex items-center gap-2">
               <Lock className="w-4 h-4 text-[#E29547]" />
-              ContraseÃ±a
+              Contrasena
             </label>
             <input 
               type="password" 
