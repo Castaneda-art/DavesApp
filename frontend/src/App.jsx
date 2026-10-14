@@ -1,4 +1,4 @@
-﻿import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Caja from './pages/Caja';
@@ -8,6 +8,7 @@ import Vitrina from './pages/Vitrina';
 import Agenda from './pages/Agenda';
 import Login from './pages/Login';
 import VistaCliente from './pages/VistaCliente';
+import ColaboradorasAdmin from './pages/ColaboradorasAdmin';
 
 // Componente para proteger las rutas administrativas
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -43,6 +44,7 @@ function App() {
           <Route index element={<ProtectedRoute allowedRoles={['ADMINISTRADORA']}><Dashboard /></ProtectedRoute>} />
           <Route path="caja" element={<ProtectedRoute allowedRoles={['ADMINISTRADORA']}><Caja /></ProtectedRoute>} />
           <Route path="clientes" element={<ProtectedRoute allowedRoles={['ADMINISTRADORA']}><Clientes /></ProtectedRoute>} />
+          <Route path="colaboradoras-admin" element={<ProtectedRoute allowedRoles={['ADMINISTRADORA']}><ColaboradorasAdmin /></ProtectedRoute>} />
           <Route path="colaboradora" element={<ProtectedRoute allowedRoles={['ADMINISTRADORA', 'COLABORADORA']}><Colaboradora /></ProtectedRoute>} />
           <Route path="vitrina" element={<ProtectedRoute allowedRoles={['ADMINISTRADORA']}><Vitrina /></ProtectedRoute>} />
           <Route path="agenda" element={<ProtectedRoute allowedRoles={['ADMINISTRADORA']}><Agenda /></ProtectedRoute>} />

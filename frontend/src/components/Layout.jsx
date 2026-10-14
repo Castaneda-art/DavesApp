@@ -1,5 +1,5 @@
-﻿import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, DollarSign, Users, Store, Scissors, ShoppingBag, LogOut, Calendar } from 'lucide-react';
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
+import { Home, DollarSign, Users, Store, Scissors, ShoppingBag, LogOut, Calendar, UserPlus } from 'lucide-react';
 
 export default function Layout() {
   const location = useLocation();
@@ -10,6 +10,7 @@ export default function Layout() {
     { name: 'Inicio', path: '/', icon: <Home size={20} />, roles: ['ADMINISTRADORA'] },
     { name: 'Caja/Transacciones', path: '/caja', icon: <DollarSign size={20} />, roles: ['ADMINISTRADORA'] },
     { name: 'Clientes', path: '/clientes', icon: <Users size={20} />, roles: ['ADMINISTRADORA'] },
+    { name: 'Colaboradoras', path: '/colaboradoras-admin', icon: <UserPlus size={20} />, roles: ['ADMINISTRADORA'] },
     { name: 'Panel Colaboradora', path: '/colaboradora', icon: <Scissors size={20} />, roles: ['ADMINISTRADORA', 'COLABORADORA'] },
     { name: 'Vitrina', path: '/vitrina', icon: <ShoppingBag size={20} />, roles: ['ADMINISTRADORA'] },
     { name: 'Agenda', path: '/agenda', icon: <Calendar size={20} />, roles: ['ADMINISTRADORA'] },

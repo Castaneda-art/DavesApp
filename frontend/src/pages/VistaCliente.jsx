@@ -1,5 +1,5 @@
-﻿import { useState, useEffect } from 'react';
-import { Phone, User as UserIcon, Bell, Star, AlertCircle, CheckCircle, Image as ImageIcon } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Phone, User as UserIcon, Bell, Star, AlertCircle, CheckCircle, Image as ImageIcon, ShoppingBag } from 'lucide-react';
 
 export default function VistaCliente() {
   const [step, setStep] = useState('PHONE_INPUT'); // PHONE_INPUT | REGISTER | VALIDATED
@@ -11,6 +11,7 @@ export default function VistaCliente() {
   const [clientData, setClientData] = useState(null);
   const [localStatus, setLocalStatus] = useState(null);
   const [gallery, setGallery] = useState([]);
+  const [products, setProducts] = useState([]);
   
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' }); // type: 'error' | 'success'
@@ -50,9 +51,10 @@ export default function VistaCliente() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [statusRes, galleryRes] = await Promise.all([
+        const [statusRes, galleryRes, productsRes] = await Promise.all([
           fetch('https://davesapp.onrender.com/api/status'),
-          fetch('https://davesapp.onrender.com/api/gallery')
+          fetch('https://davesapp.onrender.com/api/gallery'),
+          fetch('https://davesapp.onrender.com/api/products/public').catch(() => fetch('https://davesapp.onrender.com/api/inventory'))
         ]);
         
         const statusData = await statusRes.json();
@@ -63,6 +65,11 @@ export default function VistaCliente() {
         const galleryData = await galleryRes.json();
         if (galleryData.success) {
           setGallery(galleryData.data);
+        }
+
+        const productsData = await productsRes.json();
+        if (productsData.success) {
+          setProducts(productsData.data);
         }
       } catch (e) {
         console.error('Error obteniendo datos iniciales', e);
@@ -174,7 +181,7 @@ export default function VistaCliente() {
             </div>
           )}
 
-          {/* PASO 1: PEDIR TEL�0FONO */}
+          {/* PASO 1: PEDIR TELEFONO */}
           {step === 'PHONE_INPUT' && (
             <div className="animate-fade-in text-center max-w-md mx-auto">
               <Phone className="w-12 h-12 text-[#E29547] mx-auto mb-4 opacity-80" />
@@ -411,6 +418,64 @@ export default function VistaCliente() {
                     </div>
                   )}
                 </div>
+              </div>
+
+              {/* Seccion de Productos de Vitrina (HU-11) */}
+              <div className="bg-[#1A120D] p-6 rounded-2xl border border-[#3A2A1E] overflow-hidden flex flex-col">
+                <div className="flex items-center gap-3 mb-6 shrink-0">
+                  <ShoppingBag className="w-6 h-6 text-[#E29547]" />
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Productos de Vitrina</h3>
+                    <p className="text-xs text-white/60">Articulos y tratamientos disponibles para compra en el local.</p>
+                  </div>
+                </div>
+
+                {products.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center p-8 opacity-60 border border-dashed border-[#3A2A1E] rounded-xl">
+                    <ShoppingBag className="w-12 h-12 text-gray-400 mb-3" />
+                    <p className="text-gray-400 text-sm">No hay productos en vitrina actualmente.</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+                    {products.map(product => {
+                      const isOutOfStock = product.stock <= 0;
+                      return (
+                        <div 
+                          key={product.id} 
+                          className={`relative bg-[#2C1E16] rounded-2xl p-5 border shadow-md flex flex-col justify-between transition-all duration-300 ${
+                            isOutOfStock 
+                              ? 'border-red-900/40 opacity-75' 
+                              : 'border-[#3A2A1E] hover:border-[#E29547]/50'
+                          }`}
+                        >
+                          <div>
+                            <div className="flex justify-between items-start gap-2 mb-3">
+                              <h4 className="font-bold text-white text-base leading-tight line-clamp-2">
+                                {product.name}
+                              </h4>
+                              {isOutOfStock ? (
+                                <span className="bg-red-900/80 text-red-300 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shrink-0 border border-red-500/40 shadow">
+                                  Agotado
+                                </span>
+                              ) : (
+                                <span className="bg-[#E29547]/20 text-[#E29547] text-xs font-semibold px-2 py-0.5 rounded border border-[#E29547]/30 shrink-0">
+                                  Disponible
+                                </span>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="mt-4 pt-3 border-t border-[#3A2A1E] flex justify-between items-center">
+                            <span className="text-xs text-white/50">Precio</span>
+                            <p className="text-xl font-bold text-[#E29547]">
+                              {formatCOP(product.salePrice)}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           )}

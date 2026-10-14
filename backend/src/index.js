@@ -1,6 +1,13 @@
 const express = require('express');
 const cors = require('cors');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const prisma = require('./config/prisma');
+const { JWT_SECRET } = require('./middlewares/auth.middleware');
+
+const colaboradorasRoutes = require('./routes/colaboradoras.routes');
+const clientesColaboradoraRoutes = require('./routes/clientesColaboradora.routes');
+const dashboardStatsRoutes = require('./routes/dashboardStats.routes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,16 +16,38 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// === ENDPOINTS DE AUTENTICACIÓN Y SEGURIDAD ===
+// === RUTAS MODULARES ===
+app.use('/api/colaboradoras', colaboradorasRoutes);
+app.use('/api/collaborator/clients', clientesColaboradoraRoutes);
+app.use('/api/dashboard', dashboardStatsRoutes);
+
+// === ENDPOINTS DE AUTENTICACION Y SEGURIDAD ===
 
 app.post('/api/auth/login', async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await prisma.user.findUnique({ where: { email } });
 
-    if (!user || user.password !== password) {
+    if (!user) {
       return res.status(401).json({ success: false, message: 'Credenciales incorrectas' });
     }
+
+    let isMatch = false;
+    if (user.password && user.password.startsWith('$2')) {
+      isMatch = await bcrypt.compare(password, user.password);
+    } else {
+      isMatch = user.password === password;
+    }
+
+    if (!isMatch) {
+      return res.status(401).json({ success: false, message: 'Credenciales incorrectas' });
+    }
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email, role: user.role, name: user.name },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
 
     res.json({
       success: true,
@@ -26,7 +55,7 @@ app.post('/api/auth/login', async (req, res) => {
         id: user.id, 
         name: user.name, 
         role: user.role, 
-        token: 'simulated_jwt_token_123' 
+        token 
       }
     });
   } catch (error) {
@@ -332,6 +361,17 @@ app.get('/api/inventory', async (req, res) => {
     res.json({ success: true, data: products });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error al obtener inventario' });
+  }
+});
+
+// Endpoint publico explicito para clientes (HU-11)
+app.get('/api/products/public', async (req, res) => {
+  try {
+    const products = await prisma.product.findMany({ orderBy: { name: 'asc' } });
+    res.json({ success: true, data: products });
+  } catch (error) {
+    console.error('Error al obtener productos publicos:', error);
+    res.status(500).json({ success: false, message: 'Error al obtener productos de vitrina' });
   }
 });
 

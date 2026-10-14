@@ -1,6 +1,19 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bell, X, Scissors, ShoppingBag, Calendar, Clock, CalendarX } from 'lucide-react';
+import { Bell, X, Scissors, ShoppingBag, Calendar, Clock, CalendarX, BarChart3, PieChart as PieChartIcon } from 'lucide-react';
+import { 
+  ResponsiveContainer, 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  Tooltip, 
+  Legend, 
+  CartesianGrid, 
+  PieChart, 
+  Pie, 
+  Cell 
+} from 'recharts';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -14,6 +27,10 @@ export default function Dashboard() {
   const [ingresosServicios, setIngresosServicios] = useState(0);
   const [ingresosProductos, setIngresosProductos] = useState(0);
   const [clientWaiting, setClientWaiting] = useState(false);
+
+  // Estados para graficas de Recharts (HU-13 / Requisito 4)
+  const [statsData, setStatsData] = useState({ weeklyComparison: [], clientProportion: [] });
+  const [isLoadingStats, setIsLoadingStats] = useState(true);
 
   // Meta Diaria Constante
   const META_DIARIA = 150000;
@@ -130,6 +147,21 @@ export default function Dashboard() {
     }
   };
 
+  const fetchStats = async () => {
+    setIsLoadingStats(true);
+    try {
+      const res = await fetch('https://davesapp.onrender.com/api/dashboard/stats');
+      const result = await res.json();
+      if (result.success && result.data) {
+        setStatsData(result.data);
+      }
+    } catch (error) {
+      console.error('Error fetching dashboard stats:', error);
+    } finally {
+      setIsLoadingStats(false);
+    }
+  };
+
   useEffect(() => {
     fetchStatus();
     fetchTransactions();
@@ -137,6 +169,7 @@ export default function Dashboard() {
     fetchClients();
     fetchInventory();
     fetchAppointments();
+    fetchStats();
 
     const pollingInterval = setInterval(() => {
       fetchStatus();
@@ -178,6 +211,7 @@ export default function Dashboard() {
       if (result.success) {
         await fetchTransactions();
         await fetchDashboard();
+        await fetchStats();
         setQuickClientId('');
       }
     } catch (error) {
@@ -218,6 +252,7 @@ export default function Dashboard() {
         await fetchTransactions();
         await fetchDashboard();
         await fetchInventory();
+        await fetchStats();
         setQuickProductId('');
       }
     } catch (error) {
@@ -396,7 +431,7 @@ export default function Dashboard() {
                 </div>
                 {localStatus.updatedAt && (
                   <p className="text-sm text-white/60 mt-4">
-                    �altima actualizacion: {new Date(localStatus.updatedAt).toLocaleTimeString()}
+                    Ultima actualizacion: {new Date(localStatus.updatedAt).toLocaleTimeString()}
                   </p>
                 )}
               </>
@@ -435,6 +470,100 @@ export default function Dashboard() {
           )}
         </div>
         </div>
+      </div>
+
+      {/* SECCION DE GRAFICAS Y COMPARACIONES (HU-13 / Requisito 4) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+        
+        {/* Grafica A: Ingresos Totales vs Gastos Operativos */}
+        <div className="bg-[#2C1E16] rounded-2xl shadow-xl border border-[#3A2A1E] p-6 sm:p-8 flex flex-col justify-between transition-colors duration-300 hover:border-[#E29547]/50">
+          <div className="mb-4">
+            <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 text-[#E29547]" />
+              Ingresos Totales vs Gastos Operativos
+            </h3>
+            <p className="text-sm text-white/60 mt-1">Comparacion semanal de ingresos generados frente a gastos del local.</p>
+          </div>
+
+          <div className="h-72 w-full flex items-center justify-center">
+            {isLoadingStats ? (
+              <p className="text-white/50 text-sm">Cargando metricas...</p>
+            ) : !statsData.weeklyComparison || statsData.weeklyComparison.length === 0 || !statsData.weeklyComparison.some(d => d.ingresos > 0 || d.gastos > 0) ? (
+              <div className="flex flex-col items-center justify-center p-8 opacity-60 border border-dashed border-[#3A2A1E] rounded-xl w-full h-full">
+                <BarChart3 className="w-10 h-10 text-gray-400 mb-3" />
+                <p className="text-gray-400 text-sm text-center">No hay movimientos registrados en la ultima semana.</p>
+              </div>
+            ) : (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={statsData.weeklyComparison} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#3A2A1E" vertical={false} />
+                  <XAxis dataKey="day" stroke="#9CA3AF" tick={{ fill: '#9CA3AF', fontSize: 11 }} />
+                  <YAxis 
+                    stroke="#9CA3AF" 
+                    tick={{ fill: '#9CA3AF', fontSize: 11 }} 
+                    tickFormatter={(val) => `$${val >= 1000 ? (val / 1000).toFixed(0) + 'k' : val}`} 
+                  />
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: '#1A120D', borderColor: '#3A2A1E', borderRadius: '12px', color: '#fff' }} 
+                    itemStyle={{ color: '#FAFAFA' }}
+                    formatter={(value) => [formatCOP(value), '']}
+                  />
+                  <Legend wrapperStyle={{ paddingTop: '10px', fontSize: '12px' }} />
+                  <Bar dataKey="ingresos" name="Ingresos Totales" fill="#E29547" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="gastos" name="Gastos Operativos" fill="#EF4444" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            )}
+          </div>
+        </div>
+
+        {/* Grafica B: Proporcion Clientes Habituales vs Nuevos */}
+        <div className="bg-[#2C1E16] rounded-2xl shadow-xl border border-[#3A2A1E] p-6 sm:p-8 flex flex-col justify-between transition-colors duration-300 hover:border-[#E29547]/50">
+          <div className="mb-4">
+            <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <PieChartIcon className="w-5 h-5 text-[#E29547]" />
+              Proporcion de Clientes
+            </h3>
+            <p className="text-sm text-white/60 mt-1">Distribucion entre clientes habituales y clientes nuevos.</p>
+          </div>
+
+          <div className="h-72 w-full flex items-center justify-center">
+            {isLoadingStats ? (
+              <p className="text-white/50 text-sm">Cargando metricas...</p>
+            ) : !statsData.clientProportion || !statsData.clientProportion.some(d => d.value > 0) ? (
+              <div className="flex flex-col items-center justify-center p-8 opacity-60 border border-dashed border-[#3A2A1E] rounded-xl w-full h-full">
+                <PieChartIcon className="w-10 h-10 text-gray-400 mb-3" />
+                <p className="text-gray-400 text-sm text-center">No hay datos suficientes de clientes para graficar la proporcion.</p>
+              </div>
+            ) : (
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={statsData.clientProportion}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="45%"
+                    innerRadius={55}
+                    outerRadius={85}
+                    paddingAngle={4}
+                  >
+                    {statsData.clientProportion.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={index === 0 ? '#E29547' : '#3B82F6'} stroke="#2C1E16" strokeWidth={2} />
+                    ))}
+                  </Pie>
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: '#1A120D', borderColor: '#3A2A1E', borderRadius: '12px', color: '#fff' }} 
+                    itemStyle={{ color: '#FAFAFA' }}
+                    formatter={(value, name) => [`${value} registro(s)`, name]}
+                  />
+                  <Legend wrapperStyle={{ paddingTop: '10px', fontSize: '12px' }} />
+                </PieChart>
+              </ResponsiveContainer>
+            )}
+          </div>
+        </div>
+
       </div>
 
       <div className="bg-[#2C1E16] rounded-2xl shadow-xl border border-[#3A2A1E] p-6 sm:p-8 mt-8 transition-colors duration-300 hover:border-[#E29547]/50">
