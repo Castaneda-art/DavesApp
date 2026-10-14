@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { DollarSign, Inbox } from 'lucide-react';
 export default function Caja() {
   const [transactions, setTransactions] = useState([]);
@@ -146,6 +146,7 @@ export default function Caja() {
                 <input 
                   type="number" 
                   step="0.01"
+                  min="0"
                   required
                   value={formData.amount}
                   onChange={e => setFormData({ ...formData, amount: e.target.value })}
@@ -161,6 +162,7 @@ export default function Caja() {
                 <input 
                   type="number" 
                   step="0.01"
+                  min="0"
                   value={cashReceived}
                   onChange={e => setCashReceived(e.target.value)}
                   placeholder="Ej. 50000"
@@ -279,7 +281,7 @@ export default function Caja() {
 
         {/* Historial de Transacciones */}
         <div className="bg-[#2C1E16] rounded-2xl shadow-xl border border-[#3A2A1E] p-6 sm:p-8 flex flex-col max-h-[700px]">
-          <h3 className="text-xl font-semibold text-white mb-4">�altimos Movimientos</h3>
+          <h3 className="text-xl font-semibold text-white mb-4">Ultimos Movimientos</h3>
           
           <div className="flex-1 overflow-y-auto space-y-1 pr-2 custom-scrollbar">
             {transactions.length === 0 ? (
@@ -296,7 +298,7 @@ export default function Caja() {
                       <p className="font-medium text-white/90">{tx.description}</p>
                       <div className="flex items-center gap-2 text-xs text-white/60 mt-1">
                         <span className="text-[#E29547] font-semibold">{tx.type.replace('_', ' ')}</span>
-                        <span>â€¢</span>
+                        <span>|</span>
                         <span>{new Date(tx.createdAt).toLocaleDateString()} {new Date(tx.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                       </div>
                     </div>

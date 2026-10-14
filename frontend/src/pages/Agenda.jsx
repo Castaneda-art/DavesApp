@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar, CheckCircle, XCircle, CalendarX } from 'lucide-react';
 
 export default function Agenda() {

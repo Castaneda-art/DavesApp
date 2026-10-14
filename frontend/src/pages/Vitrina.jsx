@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ShoppingBag } from 'lucide-react';
 
 export default function Vitrina() {
